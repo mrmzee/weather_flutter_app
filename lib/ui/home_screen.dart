@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_flutter_app/ui/search_screen.dart';
 import 'package:weather_flutter_app/util/colors.dart';
 import 'package:weather_flutter_app/widgets/weather_list_box.dart';
 
@@ -62,6 +63,13 @@ class _HomeMainState extends State<HomeMain> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: TextField(
+          onSubmitted: (value) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SearchScreen(),
+              ),
+            );
+          },
           focusNode: focusNodeController,
           controller: _textController,
           style: const TextStyle(color: MyColors.white),
@@ -88,6 +96,13 @@ class _HomeMainState extends State<HomeMain> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _searchButton() {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Icon(Icons.location_searching_outlined),
     );
   }
 }
