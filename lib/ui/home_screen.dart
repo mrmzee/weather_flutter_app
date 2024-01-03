@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_flutter_app/util/colors.dart';
+import 'package:weather_flutter_app/widgets/weather_list_box.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,7 +47,7 @@ class _HomeMainState extends State<HomeMain> {
             _searchBox(),
             SliverList.builder(
               itemBuilder: (context, index) {
-                return _weatherBox();
+                return weatherBox();
               },
               itemCount: 10,
             )
@@ -66,7 +67,7 @@ class _HomeMainState extends State<HomeMain> {
           style: const TextStyle(color: MyColors.white),
           decoration: InputDecoration(
             hintText: 'Search for a city',
-            hintStyle: TextStyle(color: MyColors.grey),
+            hintStyle: const TextStyle(color: MyColors.grey),
             prefixIcon: const Icon(Icons.search),
             prefixIconColor: (focusNodeController.hasFocus)
                 ? MyColors.lightPurple
@@ -86,69 +87,6 @@ class _HomeMainState extends State<HomeMain> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _weatherBox() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12),
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          Image.asset('assets/images/weather_box.png'),
-          Positioned(
-            top: -5,
-            right: 20,
-            bottom: 20,
-            child: Image.asset('assets/images/Day_Snow.png'),
-          ),
-          const Positioned(
-            top: 70,
-            left: 50,
-            child: Text(
-              '17°',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 64,
-                fontFamily: 'SF Pro Display',
-                fontWeight: FontWeight.w400,
-                height: 0.01,
-                letterSpacing: 0.37,
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 120,
-            left: 50,
-            child: Text(
-              'Rasht',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontFamily: 'SF Pro Display',
-                fontWeight: FontWeight.w400,
-                height: 0.01,
-                letterSpacing: 0.37,
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 150,
-            left: 50,
-            child: Text(
-              '20:20',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontFamily: 'SF Pro Display',
-                fontWeight: FontWeight.w400,
-                height: 0.01,
-                letterSpacing: 0.37,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

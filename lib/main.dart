@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_flutter_app/ui/home_screen.dart';
+import 'package:weather_flutter_app/ui/search_screen.dart';
+import 'package:weather_flutter_app/ui/single_weather_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: SearchScreen(),
     );
   }
 }
