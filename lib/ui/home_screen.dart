@@ -6,6 +6,7 @@ import 'package:weather_flutter_app/bloc/home/home_state.dart';
 import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/di/di.dart';
 import 'package:weather_flutter_app/ui/search_screen.dart';
+import 'package:weather_flutter_app/ui/single_weather_screen.dart';
 import 'package:weather_flutter_app/util/colors.dart';
 import 'package:weather_flutter_app/widgets/toast_widget.dart';
 import 'package:weather_flutter_app/widgets/weather_home_box_widget.dart';
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     (response) {
                       return SliverList.builder(
                         itemBuilder: (context, index) {
-                          return _getWeatherHomeBox(response, index);
+                          return _getWeatherHomeBox(context, response, index);
                         },
                         itemCount: response.length,
                       );
@@ -64,18 +65,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _getWeatherHomeBox(List<WeatherItem> response, int index) {
+  Widget _getWeatherHomeBox(
+      BuildContext context, List<WeatherItem> response, int index) {
     return Dismissible(
       key: UniqueKey(),
       onDismissed: (direction) {
         BlocProvider.of<HomeBloc>(context).add(
           DismissWeatherItemEvent(index),
         );
+
         toastWidget(
             context, 'Delete weather box . . . !', Icons.delete, MyColors.red);
       },
-      child: weatherHomeBox(
-        response[index],
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const SingleWeatherScreen(),
+            ),
+          );
+        },
+        child: weatherHomeBox(
+          response[index],
+        ),
       ),
     );
   }

@@ -10,6 +10,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitState()) {
     final IWeatherRepository weatherRepository = locator.get();
     final IHomeListWeatherRepository homeListWeatherRepository = locator.get();
+
     on<SearchGetDataEvent>(
       (event, emit) async {
         emit(
@@ -22,11 +23,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       },
     );
 
-    on<WeatherAddToHomeEvent>((event, emit) {
-      var weatherItem =
-          WeatherItem(event.weather.name, event.weather.temp, event.weather.dt);
+    on<WeatherAddToHomeEvent>(
+      (event, emit) async {
+        var weatherItem = WeatherItem(
+            event.weather.name, event.weather.temp, event.weather.dt);
 
-      homeListWeatherRepository.addWeatherToHome(weatherItem);
-    });
+        homeListWeatherRepository.addWeatherToHome(weatherItem);
+      },
+    );
   }
 }

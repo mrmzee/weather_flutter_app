@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_flutter_app/util/colors.dart';
 
 class SingleWeatherScreen extends StatefulWidget {
   const SingleWeatherScreen({super.key});
@@ -21,7 +22,28 @@ class _SingleWeatherScreenState extends State<SingleWeatherScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Container(),
+        body: Column(
+          verticalDirection: VerticalDirection.up,
+          children: [
+            Container(
+              height: 350,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    MyColors.lightPurple,
+                    MyColors.darkPurple,
+                  ],
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

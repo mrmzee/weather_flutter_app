@@ -13,8 +13,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeDataState(weatherList));
     });
 
-    on<DismissWeatherItemEvent>((event, emit) async {
-      await _homeListWeatherRepository.deleteWeather(event.index);
-    });
+    on<DismissWeatherItemEvent>(
+      (event, emit) async {
+        await _homeListWeatherRepository.deleteWeather(event.index);
+        var weatherList = await _homeListWeatherRepository.getWeatherItem();
+        emit(HomeDataState(weatherList));
+      },
+    );
   }
 }
