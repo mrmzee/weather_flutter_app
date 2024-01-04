@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:weather_flutter_app/util/colors.dart';
 
-Widget weatherBox() {
+Widget weatherSearchBox(String name, double dg) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Stack(
@@ -13,13 +14,13 @@ Widget weatherBox() {
           bottom: 20,
           child: Image.asset('assets/images/Day_Snow.png'),
         ),
-        const Positioned(
+        Positioned(
           top: 70,
           left: 50,
           child: Text(
-            '17°',
-            style: TextStyle(
-              color: Colors.white,
+            '$dg°',
+            style: const TextStyle(
+              color: MyColors.white,
               fontSize: 64,
               fontFamily: 'SF Pro Display',
               fontWeight: FontWeight.w400,
@@ -28,13 +29,13 @@ Widget weatherBox() {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 120,
           left: 50,
           child: Text(
-            'Rasht',
-            style: TextStyle(
-              color: Colors.white,
+            name,
+            style: const TextStyle(
+              color: MyColors.white,
               fontSize: 25,
               fontFamily: 'SF Pro Display',
               fontWeight: FontWeight.w400,
@@ -49,7 +50,7 @@ Widget weatherBox() {
           child: Text(
             '20:20',
             style: TextStyle(
-              color: Colors.white,
+              color: MyColors.white,
               fontSize: 25,
               fontFamily: 'SF Pro Display',
               fontWeight: FontWeight.w400,

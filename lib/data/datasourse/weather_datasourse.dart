@@ -5,22 +5,33 @@ import 'package:weather_flutter_app/util/api_exception.dart';
 import 'package:weather_flutter_app/util/weather_key.dart';
 
 abstract class IWeatherDataSource {
-  Future<Weather> getWeatherDataList(String cityName);
+  Future<List<Weather>> getWeatherDataList(String cityName);
 }
 
 class GetWeatherRemoteDataSource implements IWeatherDataSource {
   Dio dio = locator.get();
 
   @override
-  Future<Weather> getWeatherDataList(String cityName) async {
+  Future<List<Weather>> getWeatherDataList(String cityName) async {
     try {
       var response =
           await dio.get('/weather?q=$cityName&appid=${APIKeys.apiKey}');
-      var jsonMapObject = await response.data;
-      var listData = Weather.fromJson(jsonMapObject);
+
+      // Check if response.data is a List
+
+      var listData = (response.data['list'] as List)
+          .map<Weather>(
+            (jsonMap) => Weather.fromJson(jsonMap),
+          )
+          .toList();
+
       return listData;
+
+      // Handle the case where response.data is not a List
     } on DioException catch (ex) {
-      throw ApiException(ex.response?.statusCode, ex.response?.statusMessage);
+      throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
+    } catch (ex) {
+      throw ApiException(0, 'ارور نامشخص');
     }
   }
 }
