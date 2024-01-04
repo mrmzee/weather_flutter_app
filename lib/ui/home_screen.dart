@@ -7,6 +7,7 @@ import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/di/di.dart';
 import 'package:weather_flutter_app/ui/search_screen.dart';
 import 'package:weather_flutter_app/util/colors.dart';
+import 'package:weather_flutter_app/widgets/toast_widget.dart';
 import 'package:weather_flutter_app/widgets/weather_home_box_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -70,6 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider.of<HomeBloc>(context).add(
           DismissWeatherItemEvent(index),
         );
+        toastWidget(
+            context, 'Delete weather box . . . !', Icons.delete, MyColors.red);
       },
       child: weatherHomeBox(
         response[index],

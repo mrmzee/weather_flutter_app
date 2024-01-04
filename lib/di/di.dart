@@ -16,18 +16,15 @@ Future<void> getItInit() async {
     ),
   );
 
-  //datasource
-
+  // datasource
   locator.registerFactory<IWeatherDataSource>(() => WebApiFake());
   locator.registerFactory<IHomeListWeatherDatasource>(
       () => HomeListWeatherLocalDatasource());
 
-  //repository
-
+  // repository
   locator.registerFactory<IWeatherRepository>(() => WeatherRepository());
   locator.registerFactory<IHomeListWeatherRepository>(
       () => HomeListWeatherRepository());
 
-  //bloc
   locator.registerSingleton<HomeBloc>(HomeBloc());
 }

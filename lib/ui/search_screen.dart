@@ -6,6 +6,7 @@ import 'package:weather_flutter_app/bloc/search/search_bloc.dart';
 import 'package:weather_flutter_app/bloc/search/search_event.dart';
 import 'package:weather_flutter_app/bloc/search/search_state.dart';
 import 'package:weather_flutter_app/util/colors.dart';
+import 'package:weather_flutter_app/widgets/toast_widget.dart';
 import 'package:weather_flutter_app/widgets/weather_search_box_widget.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -86,6 +87,9 @@ class SearchMainWidget extends StatelessWidget {
                             context
                                 .read<HomeBloc>()
                                 .add(WeatherGetHiveDataEvent());
+
+                            toastWidget(context, 'Add home screen . . . !',
+                                Icons.delete, MyColors.green);
                           },
                         );
                       },
