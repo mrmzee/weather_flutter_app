@@ -7,5 +7,12 @@ class HomeInitState extends HomeState {}
 
 class HomeDataState extends HomeState {
   Either<String, List<WeatherItem>> weatherItemList;
+
   HomeDataState(this.weatherItemList);
+}
+
+class HomeDeleteState extends HomeState {
+  Either<String, String> deleteResult;
+
+  HomeDeleteState(this.deleteResult);
 }

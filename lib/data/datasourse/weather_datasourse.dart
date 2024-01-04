@@ -17,8 +17,6 @@ class GetWeatherRemoteDataSource implements IWeatherDataSource {
       var response =
           await dio.get('/weather?q=$cityName&appid=${APIKeys.apiKey}');
 
-      // Check if response.data is a List
-
       var listData = (response.data['list'] as List)
           .map<Weather>(
             (jsonMap) => Weather.fromJson(jsonMap),
@@ -26,8 +24,6 @@ class GetWeatherRemoteDataSource implements IWeatherDataSource {
           .toList();
 
       return listData;
-
-      // Handle the case where response.data is not a List
     } on DioException catch (ex) {
       throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
     } catch (ex) {

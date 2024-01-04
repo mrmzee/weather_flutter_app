@@ -6,15 +6,17 @@ import 'package:weather_flutter_app/di/di.dart';
 abstract class IHomeListWeatherRepository {
   Future<Either<String, String>> addWeatherToHome(WeatherItem weatherItem);
   Future<Either<String, List<WeatherItem>>> getWeatherItem();
+  Future<Either<String, String>> deleteWeather(int index);
 }
 
 class HomeListWeatherRepository extends IHomeListWeatherRepository {
-  final IhomeListWeatherDatasourse _datasourse = locator.get();
+  final IHomeListWeatherDatasource _datasource = locator.get();
+
   @override
   Future<Either<String, String>> addWeatherToHome(
       WeatherItem weatherItem) async {
     try {
-      _datasourse.addWeather(weatherItem);
+      await _datasource.addWeather(weatherItem);
       return right('به لیست شما اضافه شد');
     } catch (e) {
       return left('خطایی رخ داده است');
@@ -24,10 +26,20 @@ class HomeListWeatherRepository extends IHomeListWeatherRepository {
   @override
   Future<Either<String, List<WeatherItem>>> getWeatherItem() async {
     try {
-      var weatherList = await _datasourse.getWeatherItem();
+      var weatherList = await _datasource.getWeatherItem();
       return right(weatherList);
     } catch (e) {
       return left('خطایی در نمایش لیست آب و هوا رخ داده است!');
+    }
+  }
+
+  @override
+  Future<Either<String, String>> deleteWeather(int index) async {
+    try {
+      await _datasource.deleteWeather(index);
+      return right('آب و هوا حذف شد');
+    } catch (e) {
+      return left('خطایی رخ داده است');
     }
   }
 }

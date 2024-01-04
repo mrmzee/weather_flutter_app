@@ -6,10 +6,15 @@ import 'package:weather_flutter_app/di/di.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final IHomeListWeatherRepository _homeListWeatherRepository = locator.get();
+
   HomeBloc() : super(HomeInitState()) {
     on<WeatherGetHiveDataEvent>((event, emit) async {
       var weatherList = await _homeListWeatherRepository.getWeatherItem();
       emit(HomeDataState(weatherList));
+    });
+
+    on<DismissWeatherItemEvent>((event, emit) async {
+      await _homeListWeatherRepository.deleteWeather(event.index);
     });
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_flutter_app/bloc/home/home_bloc.dart';
+import 'package:weather_flutter_app/bloc/home/home_event.dart';
 import 'package:weather_flutter_app/bloc/home/home_state.dart';
+import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/di/di.dart';
 import 'package:weather_flutter_app/ui/search_screen.dart';
 import 'package:weather_flutter_app/util/colors.dart';
@@ -46,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     (response) {
                       return SliverList.builder(
                         itemBuilder: (context, index) {
-                          return weatherHomeBox(response[index]);
+                          return _getWeatherHomeBox(response, index);
                         },
                         itemCount: response.length,
                       );
@@ -57,6 +59,20 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _getWeatherHomeBox(List<WeatherItem> response, int index) {
+    return Dismissible(
+      key: UniqueKey(),
+      onDismissed: (direction) {
+        BlocProvider.of<HomeBloc>(context).add(
+          DismissWeatherItemEvent(index),
+        );
+      },
+      child: weatherHomeBox(
+        response[index],
       ),
     );
   }

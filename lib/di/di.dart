@@ -19,8 +19,8 @@ Future<void> getItInit() async {
   //datasource
 
   locator.registerFactory<IWeatherDataSource>(() => WebApiFake());
-  locator.registerFactory<IhomeListWeatherDatasourse>(
-      () => HomeListWeatherLocalDatasourse());
+  locator.registerFactory<IHomeListWeatherDatasource>(
+      () => HomeListWeatherLocalDatasource());
 
   //repository
 
