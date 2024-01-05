@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/util/colors.dart';
+import 'package:weather_flutter_app/widgets/weater_icon_widget.dart';
 
 Widget weatherHomeBox(WeatherItem weatherItem) {
   return Padding(
@@ -13,14 +15,14 @@ Widget weatherHomeBox(WeatherItem weatherItem) {
           top: -5,
           right: 20,
           bottom: 20,
-          child: Image.asset('assets/images/Day_Snow.png'),
+          child: weatherIconWidget(weatherItem.weatherCode, weatherItem.date),
         ),
-        const Positioned(
+        Positioned(
           top: 70,
           left: 50,
           child: Text(
-            '17°',
-            style: TextStyle(
+            '${weatherItem.degree}°',
+            style: const TextStyle(
               color: MyColors.white,
               fontSize: 64,
               fontFamily: 'SF Pro Display',
@@ -45,12 +47,12 @@ Widget weatherHomeBox(WeatherItem weatherItem) {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 150,
           left: 50,
           child: Text(
-            '20:20',
-            style: TextStyle(
+            DateFormat('EEEE dd .').add_Hm().format(weatherItem.date),
+            style: const TextStyle(
               color: MyColors.white,
               fontSize: 25,
               fontFamily: 'SF Pro Display',

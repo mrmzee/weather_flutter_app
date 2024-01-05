@@ -1,4 +1,4 @@
-import 'package:weather_flutter_app/data/model/weather_model.dart';
+import 'package:weather/weather.dart';
 
 abstract class SearchEvent {}
 

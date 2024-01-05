@@ -1,7 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:weather/weather.dart';
 import 'package:weather_flutter_app/util/colors.dart';
+import 'package:weather_flutter_app/widgets/weater_icon_widget.dart';
 
-Widget weatherSearchBox(String name, double dg) {
+Widget weatherSearchBox(Weather weather) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Stack(
@@ -12,13 +15,14 @@ Widget weatherSearchBox(String name, double dg) {
           top: -5,
           right: 20,
           bottom: 20,
-          child: Image.asset('assets/images/Day_Snow.png'),
+          child:
+              weatherIconWidget(weather.weatherConditionCode!, weather.date!),
         ),
         Positioned(
           top: 70,
           left: 50,
           child: Text(
-            '$dg°',
+            '${weather.temperature!.celsius!.round()}°',
             style: const TextStyle(
               color: MyColors.white,
               fontSize: 64,
@@ -33,7 +37,7 @@ Widget weatherSearchBox(String name, double dg) {
           top: 120,
           left: 50,
           child: Text(
-            name,
+            '${weather.areaName}',
             style: const TextStyle(
               color: MyColors.white,
               fontSize: 25,
@@ -44,12 +48,12 @@ Widget weatherSearchBox(String name, double dg) {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 150,
           left: 50,
           child: Text(
-            '20:20',
-            style: TextStyle(
+            DateFormat('EEEE dd .').add_Hm().format(weather.date!),
+            style: const TextStyle(
               color: MyColors.white,
               fontSize: 25,
               fontFamily: 'SF Pro Display',

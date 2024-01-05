@@ -18,9 +18,10 @@ class WeatherItemAdapter extends TypeAdapter<WeatherItem> {
     };
     return WeatherItem(
       fields[0] as String,
-      fields[1] as double,
+      fields[1] as int,
       fields[2] as int,
-    )..degri = fields[3] as double?;
+      fields[3] as DateTime,
+    );
   }
 
   @override
@@ -30,11 +31,11 @@ class WeatherItemAdapter extends TypeAdapter<WeatherItem> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.temp)
+      ..write(obj.degree)
       ..writeByte(2)
-      ..write(obj.dt)
+      ..write(obj.weatherCode)
       ..writeByte(3)
-      ..write(obj.degri);
+      ..write(obj.date);
   }
 
   @override

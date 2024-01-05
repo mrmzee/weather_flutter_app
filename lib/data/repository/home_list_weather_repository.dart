@@ -17,9 +17,9 @@ class HomeListWeatherRepository extends IHomeListWeatherRepository {
       WeatherItem weatherItem) async {
     try {
       await _datasource.addWeather(weatherItem);
-      return right('به لیست شما اضافه شد');
+      return right('Added to your list');
     } catch (e) {
-      return left('خطایی رخ داده است');
+      return left('An error has occurred');
     }
   }
 
@@ -29,7 +29,7 @@ class HomeListWeatherRepository extends IHomeListWeatherRepository {
       var weatherList = await _datasource.getWeatherItem();
       return right(weatherList);
     } catch (e) {
-      return left('خطایی در نمایش لیست آب و هوا رخ داده است!');
+      return left('An error occurred in displaying the weather list!');
     }
   }
 
@@ -37,9 +37,9 @@ class HomeListWeatherRepository extends IHomeListWeatherRepository {
   Future<Either<String, String>> deleteWeather(int index) async {
     try {
       await _datasource.deleteWeather(index);
-      return right('آب و هوا حذف شد');
+      return right('weather removed');
     } catch (e) {
-      return left('خطایی رخ داده است');
+      return left('An error has occurred');
     }
   }
 }

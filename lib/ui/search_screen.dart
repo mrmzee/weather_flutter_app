@@ -76,24 +76,22 @@ class SearchMainWidget extends StatelessWidget {
                     return SliverList.builder(
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          child: weatherSearchBox(
-                              response[index].name, response[index].degri!),
+                          child: weatherSearchBox(response),
                           onTap: () {
                             context.read<SearchBloc>().add(
                                   WeatherAddToHomeEvent(
-                                    response[index],
+                                    response,
                                   ),
                                 );
                             context
                                 .read<HomeBloc>()
                                 .add(WeatherGetHiveDataEvent());
-
                             toastWidget(context, 'Add home screen . . . !',
                                 Icons.delete, MyColors.green);
                           },
                         );
                       },
-                      itemCount: response.length,
+                      itemCount: 1,
                     );
                   },
                 );

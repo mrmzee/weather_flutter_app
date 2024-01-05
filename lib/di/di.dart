@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:weather_flutter_app/bloc/home/home_bloc.dart';
-import 'package:weather_flutter_app/data/datasourse/fake_data.dart';
 import 'package:weather_flutter_app/data/datasourse/home_list_weather_datasourse.dart';
 import 'package:weather_flutter_app/data/datasourse/weather_datasourse.dart';
 import 'package:weather_flutter_app/data/repository/home_list_weather_repository.dart';
@@ -17,7 +16,8 @@ Future<void> getItInit() async {
   );
 
   // datasource
-  locator.registerFactory<IWeatherDataSource>(() => WebApiFake());
+  locator
+      .registerFactory<IWeatherDataSource>(() => GetWeatherRemoteDataSource());
   locator.registerFactory<IHomeListWeatherDatasource>(
       () => HomeListWeatherLocalDatasource());
 

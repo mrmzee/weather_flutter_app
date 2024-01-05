@@ -35,33 +35,35 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: MyColors.darkPurple,
       body: SafeArea(
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                _searchBox(context),
-                if (state is HomeDataState) ...{
-                  state.weatherItemList.fold(
-                    (error) {
-                      return SliverToBoxAdapter(
-                        child: Text(error),
-                      );
-                    },
-                    (response) {
-                      return SliverList.builder(
-                        itemBuilder: (context, index) {
-                          return _getWeatherHomeBox(context, response, index);
-                        },
-                        itemCount: response.length,
-                      );
-                    },
-                  )
-                }
-              ],
-            );
-          },
-        ),
-      ),
+          child: RefreshIndicator(
+              onRefresh: () async {},
+              child: BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  return CustomScrollView(
+                    slivers: [
+                      _searchBox(context),
+                      if (state is HomeDataState) ...{
+                        state.weatherItemList.fold(
+                          (error) {
+                            return SliverToBoxAdapter(
+                              child: Text(error),
+                            );
+                          },
+                          (response) {
+                            return SliverList.builder(
+                              itemBuilder: (context, index) {
+                                return _getWeatherHomeBox(
+                                    context, response, index);
+                              },
+                              itemCount: response.length,
+                            );
+                          },
+                        )
+                      }
+                    ],
+                  );
+                },
+              ))),
     );
   }
 

@@ -26,7 +26,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<WeatherAddToHomeEvent>(
       (event, emit) async {
         var weatherItem = WeatherItem(
-            event.weather.name, event.weather.temp, event.weather.dt);
+            event.weather.areaName!,
+            event.weather.temperature!.celsius!.round(),
+            event.weather.weatherConditionCode!,
+            event.weather.date!);
 
         homeListWeatherRepository.addWeatherToHome(weatherItem);
       },

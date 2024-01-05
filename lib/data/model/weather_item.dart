@@ -7,13 +7,13 @@ class WeatherItem {
   @HiveField(0)
   String name;
   @HiveField(1)
-  double temp;
-  @HiveField(2)
-  int dt;
-  @HiveField(3)
-  double? degri;
+  int degree;
 
-  WeatherItem(this.name, this.temp, this.dt) {
-    degri = temp - 273;
-  }
+  @HiveField(2)
+  int weatherCode;
+
+  @HiveField(3)
+  DateTime date;
+
+  WeatherItem(this.name, this.degree, this.weatherCode, this.date);
 }

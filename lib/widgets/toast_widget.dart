@@ -21,7 +21,7 @@ toastWidget(context, String text, IconData icon, Color backgroundColor) {
       textAlign: TextAlign.start,
       textDirection: TextDirection.ltr,
     ),
-    toastPosition: Position.top,
+    toastPosition: Position.bottom,
     animationDuration: const Duration(milliseconds: 500),
     autoDismiss: true,
   ).show(context);
