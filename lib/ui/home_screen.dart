@@ -6,7 +6,6 @@ import 'package:weather_flutter_app/bloc/home/home_state.dart';
 import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/di/di.dart';
 import 'package:weather_flutter_app/ui/search_screen.dart';
-import 'package:weather_flutter_app/ui/single_weather_screen.dart';
 import 'package:weather_flutter_app/util/colors.dart';
 import 'package:weather_flutter_app/widgets/toast_widget.dart';
 import 'package:weather_flutter_app/widgets/weather_home_box_widget.dart';
@@ -27,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     focusNodeController.addListener(() {
       setState(() {});
     });
+
     super.initState();
   }
 
@@ -35,35 +35,47 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: MyColors.darkPurple,
       body: SafeArea(
-          child: RefreshIndicator(
-              onRefresh: () async {},
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  return CustomScrollView(
-                    slivers: [
-                      _searchBox(context),
-                      if (state is HomeDataState) ...{
-                        state.weatherItemList.fold(
-                          (error) {
-                            return SliverToBoxAdapter(
-                              child: Text(error),
-                            );
+        child: RefreshIndicator(
+          onRefresh: () async {},
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              return CustomScrollView(
+                slivers: [
+                  _searchBox(context),
+                  if (state is HomeLoadingState) ...{
+                    const SliverToBoxAdapter(
+                      child: Center(
+                        child: SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ),
+                  },
+                  if (state is HomeDataState) ...{
+                    state.weatherItemList.fold(
+                      (error) {
+                        return SliverToBoxAdapter(
+                          child: Text(error),
+                        );
+                      },
+                      (response) {
+                        return SliverList.builder(
+                          itemBuilder: (context, index) {
+                            return _getWeatherHomeBox(context, response, index);
                           },
-                          (response) {
-                            return SliverList.builder(
-                              itemBuilder: (context, index) {
-                                return _getWeatherHomeBox(
-                                    context, response, index);
-                              },
-                              itemCount: response.length,
-                            );
-                          },
-                        )
-                      }
-                    ],
-                  );
-                },
-              ))),
+                          itemCount: response.length,
+                        );
+                      },
+                    )
+                  },
+                ],
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -79,17 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
         toastWidget(
             context, 'Delete weather box . . . !', Icons.delete, MyColors.red);
       },
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const SingleWeatherScreen(),
-            ),
-          );
-        },
-        child: weatherHomeBox(
-          response[index],
-        ),
+      child: WeatherHomeBox(
+        weatherItem: response[index],
       ),
     );
   }

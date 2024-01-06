@@ -7,3 +7,7 @@ class DismissWeatherItemEvent extends HomeEvent {
 
   DismissWeatherItemEvent(this.index);
 }
+
+class FirstAddWeatherItemEvent extends HomeEvent {
+  FirstAddWeatherItemEvent();
+}

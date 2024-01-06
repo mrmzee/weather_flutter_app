@@ -11,7 +11,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(WeatherItemAdapter());
   await Hive.openBox<WeatherItem>('weatherBox');
-  await getItInit(); // Pass the context here
+  await getItInit();
   runApp(const MyApp());
 }
 

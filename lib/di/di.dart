@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_flutter_app/bloc/home/home_bloc.dart';
 import 'package:weather_flutter_app/data/datasourse/home_list_weather_datasourse.dart';
 import 'package:weather_flutter_app/data/datasourse/weather_datasourse.dart';
@@ -14,6 +15,9 @@ Future<void> getItInit() async {
       BaseOptions(baseUrl: 'https://api.openweathermap.org/data/2.5'),
     ),
   );
+
+  locator.registerSingleton<SharedPreferences>(
+      await SharedPreferences.getInstance());
 
   // datasource
   locator

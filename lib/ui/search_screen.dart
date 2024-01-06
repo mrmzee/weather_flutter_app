@@ -69,7 +69,14 @@ class SearchMainWidget extends StatelessWidget {
                 return state.getWeatherData.fold(
                   (error) {
                     return SliverToBoxAdapter(
-                      child: Text(error),
+                      child: Text(
+                        error,
+                        style: const TextStyle(
+                          color: MyColors.white,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     );
                   },
                   (response) {
@@ -80,6 +87,7 @@ class SearchMainWidget extends StatelessWidget {
                           onTap: () {
                             context.read<SearchBloc>().add(
                                   WeatherAddToHomeEvent(
+                                    response.areaName!,
                                     response,
                                   ),
                                 );
@@ -87,7 +95,7 @@ class SearchMainWidget extends StatelessWidget {
                                 .read<HomeBloc>()
                                 .add(WeatherGetHiveDataEvent());
                             toastWidget(context, 'Add home screen . . . !',
-                                Icons.delete, MyColors.green);
+                                Icons.task_alt_rounded, MyColors.green);
                           },
                         );
                       },

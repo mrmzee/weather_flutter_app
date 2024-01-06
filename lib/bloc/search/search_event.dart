@@ -8,6 +8,7 @@ class SearchGetDataEvent extends SearchEvent {
 }
 
 class WeatherAddToHomeEvent extends SearchEvent {
+  String cityName;
   Weather weather;
-  WeatherAddToHomeEvent(this.weather);
+  WeatherAddToHomeEvent(this.cityName, this.weather);
 }

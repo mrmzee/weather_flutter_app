@@ -31,7 +31,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             event.weather.weatherConditionCode!,
             event.weather.date!);
 
-        homeListWeatherRepository.addWeatherToHome(weatherItem);
+        homeListWeatherRepository.addWeatherToHome(
+            event.weather.areaName!, weatherItem);
       },
     );
   }

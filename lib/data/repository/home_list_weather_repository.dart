@@ -4,7 +4,8 @@ import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/di/di.dart';
 
 abstract class IHomeListWeatherRepository {
-  Future<Either<String, String>> addWeatherToHome(WeatherItem weatherItem);
+  Future<Either<String, String>> addWeatherToHome(
+      String cityName, WeatherItem weatherItem);
   Future<Either<String, List<WeatherItem>>> getWeatherItem();
   Future<Either<String, String>> deleteWeather(int index);
 }
@@ -14,9 +15,9 @@ class HomeListWeatherRepository extends IHomeListWeatherRepository {
 
   @override
   Future<Either<String, String>> addWeatherToHome(
-      WeatherItem weatherItem) async {
+      String cityName, WeatherItem weatherItem) async {
     try {
-      await _datasource.addWeather(weatherItem);
+      await _datasource.addWeather(cityName, weatherItem);
       return right('Added to your list');
     } catch (e) {
       return left('An error has occurred');
