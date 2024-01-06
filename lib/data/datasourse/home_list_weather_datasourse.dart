@@ -5,6 +5,7 @@ abstract class IHomeListWeatherDatasource {
   Future<void> addWeather(String cityName, WeatherItem weatherItem);
   Future<List<WeatherItem>> getWeatherItem();
   Future<void> deleteWeather(int index);
+  Future<List<String>> getWeatherItemKeys();
 }
 
 class HomeListWeatherLocalDatasource implements IHomeListWeatherDatasource {
@@ -23,5 +24,10 @@ class HomeListWeatherLocalDatasource implements IHomeListWeatherDatasource {
   @override
   Future<void> deleteWeather(int index) async {
     await box.deleteAt(index);
+  }
+
+  @override
+  Future<List<String>> getWeatherItemKeys() async {
+    return box.keys.cast<String>().toList();
   }
 }

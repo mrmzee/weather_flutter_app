@@ -36,7 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: MyColors.darkPurple,
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () async {},
+          onRefresh: () async {
+            BlocProvider.of<HomeBloc>(context).add(
+              RefreshHomeEvent(),
+            );
+          },
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               return CustomScrollView(

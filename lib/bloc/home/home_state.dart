@@ -31,3 +31,10 @@ class HomeDeleteState extends HomeState {
   @override
   List<Object?> get props => [deleteResult];
 }
+
+class HomeRefreshState extends HomeState {
+  final Either<String, List<WeatherItem>> getWeatherItemKeys;
+  HomeRefreshState(this.getWeatherItemKeys);
+  @override
+  List<Object?> get props => [];
+}

@@ -8,6 +8,7 @@ abstract class IHomeListWeatherRepository {
       String cityName, WeatherItem weatherItem);
   Future<Either<String, List<WeatherItem>>> getWeatherItem();
   Future<Either<String, String>> deleteWeather(int index);
+  Future<Either<String, List<WeatherItem>>> getWeatherItemKeys();
 }
 
 class HomeListWeatherRepository extends IHomeListWeatherRepository {
@@ -41,6 +42,16 @@ class HomeListWeatherRepository extends IHomeListWeatherRepository {
       return right('weather removed');
     } catch (e) {
       return left('An error has occurred');
+    }
+  }
+
+  @override
+  Future<Either<String, List<WeatherItem>>> getWeatherItemKeys() async {
+    try {
+      var weatherList = await _datasource.getWeatherItem();
+      return right(weatherList);
+    } catch (e) {
+      return left('Error in receiving information');
     }
   }
 }

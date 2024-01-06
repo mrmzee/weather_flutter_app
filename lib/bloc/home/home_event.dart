@@ -11,3 +11,7 @@ class DismissWeatherItemEvent extends HomeEvent {
 class FirstAddWeatherItemEvent extends HomeEvent {
   FirstAddWeatherItemEvent();
 }
+
+class RefreshHomeEvent extends HomeEvent {
+  RefreshHomeEvent();
+}

@@ -39,28 +39,82 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       (event, emit) async {
         List<String> cityNames = ['tehran', 'dubai', 'london', 'new york'];
 
-        for (var cityName in cityNames) {
-          var weatherData = await weatherRepository.getWeatherData(cityName);
-          weatherData.fold(
-            (error) {
-              Text(error);
-            },
-            (response) async {
-              var weatherItem = WeatherItem(
-                response.areaName!,
-                response.temperature!.celsius!.round(),
-                response.weatherConditionCode!,
-                response.date!,
-              );
+        List<Future<void>> weatherFutures = [];
 
-              _homeListWeatherRepository.addWeatherToHome(
-                response.areaName!,
-                weatherItem,
-              );
-            },
-          );
-          add(WeatherGetHiveDataEvent());
+        for (var cityName in cityNames) {
+          var weatherFuture =
+              weatherRepository.getWeatherData(cityName).then((weatherData) {
+            weatherData.fold(
+              (error) {
+                Text(error);
+              },
+              (response) async {
+                var weatherItem = WeatherItem(
+                  response.areaName!,
+                  response.temperature!.celsius!.round(),
+                  response.weatherConditionCode!,
+                  response.date!,
+                );
+
+                _homeListWeatherRepository.addWeatherToHome(
+                  response.areaName!,
+                  weatherItem,
+                );
+              },
+            );
+          });
+
+          weatherFutures.add(weatherFuture);
         }
+
+        await Future.wait(weatherFutures);
+
+        add(WeatherGetHiveDataEvent());
+      },
+    );
+
+    on<RefreshHomeEvent>(
+      (event, emit) async {
+        emit(HomeLoadingState());
+        var itemKeys = await _homeListWeatherRepository.getWeatherItemKeys();
+
+        itemKeys.fold(
+          (error) {},
+          (respons) async {
+            List<Future<void>> weatherFutures = [];
+
+            for (var cityName in respons) {
+              var weatherFuture = weatherRepository
+                  .getWeatherData(cityName.name)
+                  .then((weatherData) {
+                weatherData.fold(
+                  (error) {
+                    Text(error);
+                  },
+                  (response) async {
+                    var weatherItem = WeatherItem(
+                      response.areaName!,
+                      response.temperature!.celsius!.round(),
+                      response.weatherConditionCode!,
+                      response.date!,
+                    );
+
+                    _homeListWeatherRepository.addWeatherToHome(
+                      response.areaName!,
+                      weatherItem,
+                    );
+                  },
+                );
+              });
+
+              weatherFutures.add(weatherFuture);
+            }
+
+            await Future.wait(weatherFutures);
+
+            add(WeatherGetHiveDataEvent());
+          },
+        );
       },
     );
   }
