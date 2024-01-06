@@ -112,9 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider.of<HomeBloc>(context).add(
           DismissWeatherItemEvent(index),
         );
-
-        toastWidget(
-            context, 'Delete weather box . . . !', Icons.delete, MyColors.red);
+        showToast(context, 'Delete weather box . . . !');
       },
       child: WeatherHomeBox(
         weatherItem: response[index],

@@ -1,14 +1,21 @@
+import 'package:equatable/equatable.dart';
 import 'package:weather/weather.dart';
 
-abstract class SearchEvent {}
+abstract class SearchEvent extends Equatable {}
 
 class SearchGetDataEvent extends SearchEvent {
-  String cityname;
+  final String cityname;
   SearchGetDataEvent(this.cityname);
+
+  @override
+  List<Object?> get props => [cityname];
 }
 
 class WeatherAddToHomeEvent extends SearchEvent {
-  String cityName;
-  Weather weather;
+  final String cityName;
+  final Weather weather;
   WeatherAddToHomeEvent(this.cityName, this.weather);
+
+  @override
+  List<Object?> get props => [cityName, weather];
 }

@@ -94,8 +94,7 @@ class SearchMainWidget extends StatelessWidget {
                             context
                                 .read<HomeBloc>()
                                 .add(WeatherGetHiveDataEvent());
-                            toastWidget(context, 'Add home screen . . . !',
-                                Icons.task_alt_rounded, MyColors.green);
+                            showToast(context, 'Add home screen . . . !');
                           },
                         );
                       },

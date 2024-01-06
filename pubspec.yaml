@@ -38,15 +38,9 @@ dependencies:
   equatable: ^2.0.5
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  cherry_toast: ^1.6.4
   weather: ^3.1.1
   intl: ^0.19.0
   shared_preferences: ^2.2.2
-
-
-
-
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
