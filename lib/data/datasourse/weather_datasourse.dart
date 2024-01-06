@@ -18,7 +18,7 @@ class GetWeatherRemoteDataSource implements IWeatherDataSource {
       Weather weather = await weatherFactory.currentWeatherByCityName(cityName);
 
       return weather;
-    } catch (exs) {
+    } catch (ex) {
       throw ApiException(0, 'The desired location was not found');
     }
   }

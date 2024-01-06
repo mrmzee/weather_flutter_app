@@ -15,19 +15,19 @@ class WeatherHomeBox extends StatefulWidget {
 }
 
 class WeatherHomeBoxState extends State<WeatherHomeBox> {
-  late DateTime currentTime;
+  // late DateTime currentTime;
   late Timer timer;
 
   @override
   @override
   void initState() {
     super.initState();
-    currentTime = widget.weatherItem.date;
-    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
-      setState(() {
-        currentTime = widget.weatherItem.date;
-      });
-    });
+    // currentTime = widget.weatherItem.date;
+    // timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+    //   setState(() {
+    //     currentTime = widget.weatherItem.date;
+    //   });
+    // });
   }
 
   @override
@@ -75,7 +75,7 @@ class WeatherHomeBoxState extends State<WeatherHomeBox> {
             top: 150,
             left: 50,
             child: Text(
-              DateFormat('EEEE dd .').add_Hm().format(currentTime),
+              DateFormat('EEEE dd .').add_Hm().format(widget.weatherItem.date),
               style: const TextStyle(
                 color: MyColors.white,
                 fontSize: 25,

@@ -6,7 +6,7 @@ Widget weatherIconWidget(int code, DateTime time) {
   if (dateTime >= 6 && dateTime <= 18) {
     switch (code) {
       case > 200 && <= 300:
-        return Image.asset('assets/images/Day-Storm.png');
+        return Image.asset('assets/images/Day_Storm.png');
       case > 300 && <= 600:
         return Image.asset('assets/images/Day_Rain.png');
 
@@ -20,7 +20,7 @@ Widget weatherIconWidget(int code, DateTime time) {
         return Image.asset('assets/images/Day_Clouds.png');
 
       default:
-        return Image.asset('assets/images/Day-Storm.png');
+        return Image.asset('assets/images/Day_Storm.png');
     }
   } else {
     switch (code) {

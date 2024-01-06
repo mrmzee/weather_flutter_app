@@ -30,5 +30,7 @@ Future<void> getItInit() async {
   locator.registerFactory<IHomeListWeatherRepository>(
       () => HomeListWeatherRepository());
 
+  //bloc
+
   locator.registerSingleton<HomeBloc>(HomeBloc());
 }

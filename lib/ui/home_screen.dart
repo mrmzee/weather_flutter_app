@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_flutter_app/bloc/home/home_bloc.dart';
 import 'package:weather_flutter_app/bloc/home/home_event.dart';
@@ -20,6 +21,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _textController = TextEditingController();
   FocusNode focusNodeController = FocusNode();
+  final ScrollController _scrollController = ScrollController();
+  bool isFabVisible = false;
 
   @override
   void initState() {
@@ -33,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: _floatingButton(),
       backgroundColor: MyColors.darkPurple,
       body: SafeArea(
         child: RefreshIndicator(
@@ -41,42 +45,59 @@ class _HomeScreenState extends State<HomeScreen> {
               RefreshHomeEvent(),
             );
           },
-          child: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              return CustomScrollView(
-                slivers: [
-                  _searchBox(context),
-                  if (state is HomeLoadingState) ...{
-                    const SliverToBoxAdapter(
-                      child: Center(
-                        child: SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: CircularProgressIndicator(),
+          child: NotificationListener<UserScrollNotification>(
+            onNotification: (notification) {
+              if (notification.direction == ScrollDirection.forward) {
+                setState(() {
+                  isFabVisible = false;
+                });
+              }
+              if (notification.direction == ScrollDirection.reverse) {
+                setState(() {
+                  isFabVisible = true;
+                });
+              }
+              return false;
+            },
+            child: BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    _searchBox(context),
+                    if (state is HomeLoadingState) ...{
+                      const SliverToBoxAdapter(
+                        child: Center(
+                          child: SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(),
+                          ),
                         ),
                       ),
-                    ),
-                  },
-                  if (state is HomeDataState) ...{
-                    state.weatherItemList.fold(
-                      (error) {
-                        return SliverToBoxAdapter(
-                          child: Text(error),
-                        );
-                      },
-                      (response) {
-                        return SliverList.builder(
-                          itemBuilder: (context, index) {
-                            return _getWeatherHomeBox(context, response, index);
-                          },
-                          itemCount: response.length,
-                        );
-                      },
-                    )
-                  },
-                ],
-              );
-            },
+                    },
+                    if (state is HomeDataState) ...{
+                      state.weatherItemList.fold(
+                        (error) {
+                          return SliverToBoxAdapter(
+                            child: Text(error),
+                          );
+                        },
+                        (response) {
+                          return SliverList.builder(
+                            itemBuilder: (context, index) {
+                              return _getWeatherHomeBox(
+                                  context, response, index);
+                            },
+                            itemCount: response.length,
+                          );
+                        },
+                      )
+                    },
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -169,6 +190,28 @@ class _HomeScreenState extends State<HomeScreen> {
           Icons.location_searching,
           color: MyColors.white,
         ),
+      ),
+    );
+  }
+
+  Widget _floatingButton() {
+    return Visibility(
+      visible: isFabVisible,
+      child: FloatingActionButton(
+        backgroundColor: MyColors.lightPurple,
+        splashColor: MyColors.green,
+        elevation: 10,
+        child: const Icon(
+          Icons.arrow_upward,
+          color: MyColors.white,
+        ),
+        onPressed: () {
+          _scrollController.animateTo(
+            0.0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        },
       ),
     );
   }
