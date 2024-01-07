@@ -16,23 +16,36 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         emit(
           SearchLoadingState(),
         );
-        var weatheData = await weatherRepository.getWeatherData(event.cityname);
+        var weatheCityData =
+            await weatherRepository.getWeatherCityData(event.cityname);
+
         emit(
-          SearchGetDataState(weatheData),
+          SearchGetDataState(weatheCityData),
         );
       },
     );
 
     on<WeatherAddToHomeEvent>(
       (event, emit) async {
-        var weatherItem = WeatherItem(
-            event.weather.areaName!,
-            event.weather.temperature!.celsius!.round(),
-            event.weather.weatherConditionCode!,
-            event.weather.date!);
+        var weatheData = await weatherRepository.getWeatherData(event.cityName);
 
-        homeListWeatherRepository.addWeatherToHome(
-            event.weather.areaName!, weatherItem);
+        weatheData.fold(
+          (error) {},
+          (response) {
+            var weatherItem = WeatherItem(
+              response.name,
+              response.getTempInCelsius().round(),
+              response.weatherConditionCode,
+              response.date,
+              response.timezone,
+            );
+
+            homeListWeatherRepository.addWeatherToHome(
+              response.name,
+              weatherItem,
+            );
+          },
+        );
       },
     );
   }

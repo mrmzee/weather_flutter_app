@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_flutter_app/data/model/weather_condition_code_model.dart';
 
-Widget weatherIconWidget(int code, DateTime time) {
-  int dateTime = int.parse(DateFormat().add_H().format(time));
+Widget weatherIconWidget(WeatherConditionCodeModel code, int time) {
+  var utcTime = DateTime.now().toUtc();
+  var localTime = utcTime.add(
+    Duration(seconds: time),
+  );
+
+  int dateTime = int.parse(DateFormat().add_H().format(localTime));
+
   if (dateTime >= 6 && dateTime <= 18) {
-    switch (code) {
+    switch (code.weatherConditionCode) {
       case > 200 && <= 300:
         return Image.asset('assets/images/Day_Storm.png');
       case > 300 && <= 600:
@@ -23,7 +30,7 @@ Widget weatherIconWidget(int code, DateTime time) {
         return Image.asset('assets/images/Day_Storm.png');
     }
   } else {
-    switch (code) {
+    switch (code.weatherConditionCode) {
       case > 200 && <= 300:
         return Image.asset('assets/images/Night_Storm.png');
       case > 300 && <= 600:

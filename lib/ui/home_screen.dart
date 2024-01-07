@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: _floatingButton(),
-      backgroundColor: MyColors.darkPurple,
+      backgroundColor: MyColors.purple,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
@@ -87,7 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           return SliverList.builder(
                             itemBuilder: (context, index) {
                               return _getWeatherHomeBox(
-                                  context, response, index);
+                                context,
+                                response,
+                                index,
+                              );
                             },
                             itemCount: response.length,
                           );

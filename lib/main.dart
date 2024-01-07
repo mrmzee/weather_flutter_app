@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weather_flutter_app/bloc/home/home_bloc.dart';
 import 'package:weather_flutter_app/bloc/home/home_event.dart';
+import 'package:weather_flutter_app/data/model/weather_condition_code_model.dart';
 import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/di/di.dart';
 import 'package:weather_flutter_app/ui/home_screen.dart';
@@ -10,6 +11,7 @@ import 'package:weather_flutter_app/ui/home_screen.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(WeatherItemAdapter());
+  Hive.registerAdapter(WeatherConditionCodeModelAdapter());
   await Hive.openBox<WeatherItem>('weatherBox');
   await getItInit();
   runApp(const MyApp());

@@ -1,25 +1,52 @@
 import 'package:dio/dio.dart';
-import 'package:weather/weather.dart';
+import 'package:weather_flutter_app/data/model/weather_api_model.dart';
+import 'package:weather_flutter_app/data/model/weather_data_model.dart';
 import 'package:weather_flutter_app/di/di.dart';
 import 'package:weather_flutter_app/util/api_exception.dart';
 import 'package:weather_flutter_app/util/weather_key.dart';
 
 abstract class IWeatherDataSource {
-  Future<Weather> getWeatherDataList(String cityName);
+  Future<List<WeatherCity>> getCityByNameDataList(String cityName);
+  Future<WeatherData> getWeatherData(String cityName);
 }
 
 class GetWeatherRemoteDataSource implements IWeatherDataSource {
   Dio dio = locator.get();
 
   @override
-  Future<Weather> getWeatherDataList(String cityName) async {
+  Future<WeatherData> getWeatherData(String cityName) async {
     try {
-      WeatherFactory weatherFactory = WeatherFactory(apiKey);
-      Weather weather = await weatherFactory.currentWeatherByCityName(cityName);
+      var response =
+          await dio.get('/data/2.5/weather?q=$cityName&appid=$apiKey');
 
-      return weather;
+      var jsonMapObject = await response.data;
+      var listData = WeatherData.fromJson(jsonMapObject);
+
+      return listData;
+    } on DioException catch (ex) {
+      throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
     } catch (ex) {
-      throw ApiException(0, 'The desired location was not found');
+      throw ApiException(0, 'Unspecified error');
+    }
+  }
+
+  @override
+  Future<List<WeatherCity>> getCityByNameDataList(String cityName) async {
+    try {
+      var response =
+          await dio.get('/geo/1.0/direct?q=$cityName&limit=25&appid=$apiKey');
+
+      var listData = (response.data as List)
+          .map<WeatherCity>(
+            (jsonMap) => WeatherCity.fromJson(jsonMap),
+          )
+          .toList();
+
+      return listData;
+    } on DioException catch (ex) {
+      throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
+    } catch (ex) {
+      throw ApiException(0, 'Unspecified error');
     }
   }
 }

@@ -1,44 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_item.dart';
+part of 'weather_condition_code_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class WeatherItemAdapter extends TypeAdapter<WeatherItem> {
+class WeatherConditionCodeModelAdapter
+    extends TypeAdapter<WeatherConditionCodeModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  WeatherItem read(BinaryReader reader) {
+  WeatherConditionCodeModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return WeatherItem(
-      fields[0] as String,
-      fields[1] as int,
-      fields[2] as WeatherConditionCodeModel,
-      fields[3] as int,
-      fields[4] as int,
+    return WeatherConditionCodeModel(
+      fields[0] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, WeatherItem obj) {
+  void write(BinaryWriter writer, WeatherConditionCodeModel obj) {
     writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.degree)
-      ..writeByte(2)
-      ..write(obj.weatherCode)
-      ..writeByte(3)
-      ..write(obj.date)
-      ..writeByte(4)
-      ..write(obj.timezone);
+      ..writeByte(0)
+      ..write(obj.weatherConditionCode);
   }
 
   @override
@@ -47,7 +36,7 @@ class WeatherItemAdapter extends TypeAdapter<WeatherItem> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WeatherItemAdapter &&
+      other is WeatherConditionCodeModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

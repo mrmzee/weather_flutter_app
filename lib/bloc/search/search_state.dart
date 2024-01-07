@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:weather/weather.dart';
+import 'package:weather_flutter_app/data/model/weather_api_model.dart';
 
 abstract class SearchState {}
 
@@ -10,7 +10,7 @@ class SearchLoadingState extends SearchState {}
 class SearchAddState extends SearchState {}
 
 class SearchGetDataState extends SearchState {
-  Either<String, Weather> getWeatherData;
+  Either<String, List<WeatherCity>> getWeatherCityData;
 
-  SearchGetDataState(this.getWeatherData);
+  SearchGetDataState(this.getWeatherCityData);
 }

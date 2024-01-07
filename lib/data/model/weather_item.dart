@@ -1,9 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:weather_flutter_app/data/model/weather_condition_code_model.dart';
 
 part 'weather_item.g.dart';
 
 @HiveType(typeId: 0)
-class WeatherItem {
+class WeatherItem extends HiveObject {
   @HiveField(0)
   String name;
 
@@ -11,10 +12,19 @@ class WeatherItem {
   int degree;
 
   @HiveField(2)
-  int weatherCode;
+  WeatherConditionCodeModel weatherCode;
 
   @HiveField(3)
-  DateTime date;
+  int date;
 
-  WeatherItem(this.name, this.degree, this.weatherCode, this.date);
+  @HiveField(4)
+  int timezone;
+
+  WeatherItem(
+    this.name,
+    this.degree,
+    this.weatherCode,
+    this.date,
+    this.timezone,
+  );
 }

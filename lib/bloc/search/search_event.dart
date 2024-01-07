@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:weather/weather.dart';
 
 abstract class SearchEvent extends Equatable {}
 
@@ -12,10 +11,10 @@ class SearchGetDataEvent extends SearchEvent {
 }
 
 class WeatherAddToHomeEvent extends SearchEvent {
+  final int index;
   final String cityName;
-  final Weather weather;
-  WeatherAddToHomeEvent(this.cityName, this.weather);
+  WeatherAddToHomeEvent(this.index, this.cityName);
 
   @override
-  List<Object?> get props => [cityName, weather];
+  List<Object?> get props => [index, cityName];
 }

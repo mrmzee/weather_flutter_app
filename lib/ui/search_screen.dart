@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_flutter_app/bloc/home/home_bloc.dart';
-import 'package:weather_flutter_app/bloc/home/home_event.dart';
 import 'package:weather_flutter_app/bloc/search/search_bloc.dart';
 import 'package:weather_flutter_app/bloc/search/search_event.dart';
 import 'package:weather_flutter_app/bloc/search/search_state.dart';
 import 'package:weather_flutter_app/util/colors.dart';
-import 'package:weather_flutter_app/widgets/toast_widget.dart';
 import 'package:weather_flutter_app/widgets/weather_search_box_widget.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -49,7 +46,7 @@ class SearchMainWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      backgroundColor: MyColors.darkPurple,
+      backgroundColor: MyColors.purple,
       body: CustomScrollView(
         slivers: [
           BlocBuilder<SearchBloc, SearchState>(
@@ -66,7 +63,7 @@ class SearchMainWidget extends StatelessWidget {
                 );
               }
               if (state is SearchGetDataState) {
-                return state.getWeatherData.fold(
+                return state.getWeatherCityData.fold(
                   (error) {
                     return SliverToBoxAdapter(
                       child: Text(
@@ -82,23 +79,10 @@ class SearchMainWidget extends StatelessWidget {
                   (response) {
                     return SliverList.builder(
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          child: weatherSearchBox(response),
-                          onTap: () {
-                            context.read<SearchBloc>().add(
-                                  WeatherAddToHomeEvent(
-                                    response.areaName!,
-                                    response,
-                                  ),
-                                );
-                            context
-                                .read<HomeBloc>()
-                                .add(WeatherGetHiveDataEvent());
-                            showToast(context, 'Add home screen . . . !');
-                          },
-                        );
+                        return weatherSearchBox(
+                            response[index], context, index);
                       },
-                      itemCount: 1,
+                      itemCount: response.length,
                     );
                   },
                 );
@@ -116,7 +100,7 @@ class SearchMainWidget extends StatelessWidget {
   PreferredSizeWidget _appBar() {
     return AppBar(
       centerTitle: true,
-      backgroundColor: MyColors.darkPurple,
+      backgroundColor: MyColors.purple,
       leading: const BackButton(color: MyColors.white),
       title: const Text('Search'),
       titleTextStyle: const TextStyle(

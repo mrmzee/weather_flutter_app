@@ -12,7 +12,7 @@ var locator = GetIt.I;
 Future<void> getItInit() async {
   locator.registerSingleton<Dio>(
     Dio(
-      BaseOptions(baseUrl: 'https://api.openweathermap.org/data/2.5'),
+      BaseOptions(baseUrl: 'https://api.openweathermap.org'),
     ),
   );
 

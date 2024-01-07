@@ -1,14 +1,16 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/util/colors.dart';
+import 'package:weather_flutter_app/util/local_time.dart';
 import 'package:weather_flutter_app/widgets/weater_icon_widget.dart';
 
 class WeatherHomeBox extends StatefulWidget {
   final WeatherItem weatherItem;
 
-  const WeatherHomeBox({Key? key, required this.weatherItem}) : super(key: key);
+  const WeatherHomeBox({
+    Key? key,
+    required this.weatherItem,
+  }) : super(key: key);
 
   @override
   WeatherHomeBoxState createState() => WeatherHomeBoxState();
@@ -16,18 +18,10 @@ class WeatherHomeBox extends StatefulWidget {
 
 class WeatherHomeBoxState extends State<WeatherHomeBox> {
   // late DateTime currentTime;
-  late Timer timer;
 
-  @override
   @override
   void initState() {
     super.initState();
-    // currentTime = widget.weatherItem.date;
-    // timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
-    //   setState(() {
-    //     currentTime = widget.weatherItem.date;
-    //   });
-    // });
   }
 
   @override
@@ -43,7 +37,9 @@ class WeatherHomeBoxState extends State<WeatherHomeBox> {
             right: 20,
             bottom: 20,
             child: weatherIconWidget(
-                widget.weatherItem.weatherCode, widget.weatherItem.date),
+              widget.weatherItem.weatherCode,
+              widget.weatherItem.timezone,
+            ),
           ),
           Positioned(
             top: 70,
@@ -75,7 +71,7 @@ class WeatherHomeBoxState extends State<WeatherHomeBox> {
             top: 150,
             left: 50,
             child: Text(
-              DateFormat('EEEE dd .').add_Hm().format(widget.weatherItem.date),
+              localTime(widget.weatherItem.timezone),
               style: const TextStyle(
                 color: MyColors.white,
                 fontSize: 25,
@@ -91,7 +87,6 @@ class WeatherHomeBoxState extends State<WeatherHomeBox> {
 
   @override
   void dispose() {
-    timer.cancel();
     super.dispose();
   }
 }

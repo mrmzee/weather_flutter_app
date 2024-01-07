@@ -42,27 +42,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         List<Future<void>> weatherFutures = [];
 
         for (var cityName in cityNames) {
-          var weatherFuture =
-              weatherRepository.getWeatherData(cityName).then((weatherData) {
-            weatherData.fold(
-              (error) {
-                Text(error);
-              },
-              (response) async {
-                var weatherItem = WeatherItem(
-                  response.areaName!,
-                  response.temperature!.celsius!.round(),
-                  response.weatherConditionCode!,
-                  response.date!,
-                );
+          var weatherFuture = weatherRepository.getWeatherData(cityName).then(
+            (weatherData) {
+              weatherData.fold(
+                (error) {},
+                (response) async {
+                  var weatherItem = WeatherItem(
+                    response.name,
+                    response.getTempInCelsius().round(),
+                    response.weatherConditionCode,
+                    response.date,
+                    response.timezone,
+                  );
 
-                _homeListWeatherRepository.addWeatherToHome(
-                  response.areaName!,
-                  weatherItem,
-                );
-              },
-            );
-          });
+                  _homeListWeatherRepository.addWeatherToHome(
+                    response.name,
+                    weatherItem,
+                  );
+                },
+              );
+            },
+          );
 
           weatherFutures.add(weatherFuture);
         }
@@ -84,28 +84,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             List<Future<void>> weatherFutures = [];
 
             for (var cityName in respons) {
-              var weatherFuture = weatherRepository
-                  .getWeatherData(cityName.name)
-                  .then((weatherData) {
-                weatherData.fold(
-                  (error) {
-                    Text(error);
-                  },
-                  (response) async {
-                    var weatherItem = WeatherItem(
-                      response.areaName!,
-                      response.temperature!.celsius!.round(),
-                      response.weatherConditionCode!,
-                      response.date!,
-                    );
+              var weatherFuture =
+                  weatherRepository.getWeatherData(cityName.name).then(
+                (weatherData) {
+                  weatherData.fold(
+                    (error) {},
+                    (response) async {
+                      var weatherItem = WeatherItem(
+                        response.name,
+                        response.getTempInCelsius().round(),
+                        response.weatherConditionCode,
+                        response.date,
+                        response.timezone,
+                      );
 
-                    _homeListWeatherRepository.addWeatherToHome(
-                      response.areaName!,
-                      weatherItem,
-                    );
-                  },
-                );
-              });
+                      _homeListWeatherRepository.addWeatherToHome(
+                        response.name,
+                        weatherItem,
+                      );
+                    },
+                  );
+                },
+              );
 
               weatherFutures.add(weatherFuture);
             }
