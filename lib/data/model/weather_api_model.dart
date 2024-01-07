@@ -13,7 +13,7 @@ class WeatherCity {
       json['country'],
       json['lat'],
       json['lon'],
-      json['state'],
+      json['state'] ?? '',
     );
   }
 }

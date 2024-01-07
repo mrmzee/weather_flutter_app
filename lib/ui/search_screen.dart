@@ -79,7 +79,10 @@ class SearchMainWidget extends StatelessWidget {
                     return SliverList.builder(
                       itemBuilder: (context, index) {
                         return weatherSearchBox(
-                            response[index], context, index);
+                          response[index],
+                          context,
+                          index,
+                        );
                       },
                       itemCount: response.length,
                     );

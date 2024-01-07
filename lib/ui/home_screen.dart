@@ -130,6 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Expanded(
               child: TextField(
+                onSubmitted: (value) async {
+                  _searchAction();
+                },
                 focusNode: focusNodeController,
                 controller: _textController,
                 style: Theme.of(context).textTheme.titleSmall,
@@ -167,15 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _searchButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BlocProvider<HomeBloc>.value(
-              value: locator.get<HomeBloc>(),
-              child: SearchScreen(_textController.text),
-            ),
-          ),
-        );
+        _searchAction();
       },
       child: Container(
         width: 55.0,
@@ -214,5 +209,24 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  void _searchAction() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider<HomeBloc>.value(
+          value: locator.get<HomeBloc>(),
+          child: SearchScreen(_textController.text),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    focusNodeController.dispose();
+    super.dispose();
   }
 }

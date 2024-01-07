@@ -31,7 +31,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
         weatheData.fold(
           (error) {},
-          (response) {
+          (response) async {
             var weatherItem = WeatherItem(
               response.name,
               response.getTempInCelsius().round(),
@@ -40,7 +40,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               response.timezone,
             );
 
-            homeListWeatherRepository.addWeatherToHome(
+            await homeListWeatherRepository.addWeatherToHome(
               response.name,
               weatherItem,
             );

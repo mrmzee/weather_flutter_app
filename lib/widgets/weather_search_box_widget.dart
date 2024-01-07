@@ -8,7 +8,7 @@ import 'package:weather_flutter_app/data/model/weather_api_model.dart';
 import 'package:weather_flutter_app/util/colors.dart';
 import 'package:weather_flutter_app/widgets/toast_widget.dart';
 
-Widget weatherSearchBox(WeatherCity weather, context, index) {
+Widget weatherSearchBox(WeatherCity weather, BuildContext context, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: Stack(
@@ -64,6 +64,7 @@ Widget weatherSearchBox(WeatherCity weather, context, index) {
                   BlocProvider.of<SearchBloc>(context).add(
                     WeatherAddToHomeEvent(index, weather.name),
                   );
+
                   BlocProvider.of<HomeBloc>(context).add(
                     RefreshHomeEvent(),
                   );

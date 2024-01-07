@@ -16,13 +16,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<WeatherGetHiveDataEvent>(
       (event, emit) async {
         emit(HomeLoadingState());
+        var weatherList = await _homeListWeatherRepository.getWeatherItem();
+        emit(HomeDataState(weatherList));
         bool isFirstTime = (_preferences.getBool('first_time') ?? true);
         if (isFirstTime == true) {
           add(FirstAddWeatherItemEvent());
           _preferences.setBool('first_time', false);
+          var weatherList = await _homeListWeatherRepository.getWeatherItem();
+          emit(HomeDataState(weatherList));
         }
-        var weatherList = await _homeListWeatherRepository.getWeatherItem();
-        emit(HomeDataState(weatherList));
       },
     );
 
@@ -97,7 +99,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                         response.timezone,
                       );
 
-                      _homeListWeatherRepository.addWeatherToHome(
+                      await _homeListWeatherRepository.addWeatherToHome(
                         response.name,
                         weatherItem,
                       );
