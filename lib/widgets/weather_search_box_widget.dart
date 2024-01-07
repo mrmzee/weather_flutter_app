@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_flutter_app/bloc/home/home_bloc.dart';
 import 'package:weather_flutter_app/bloc/home/home_event.dart';
@@ -37,30 +37,26 @@ Widget weatherSearchBox(WeatherCity weather, context, index) {
                     bottomLeft: Radius.circular(20),
                   ),
                 ),
-                child: Column(
-                  children: [
-                    Text(
-                      weather.name,
-                      style: const TextStyle(
-                        color: MyColors.white,
-                        fontSize: 18,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        weather.name,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Text(
-                      weather.state,
-                      style: const TextStyle(
-                        color: MyColors.white,
-                        fontSize: 18,
+                      Text(
+                        '${weather.state} / ${weather.country}',
+                        style: Theme.of(context).textTheme.titleSmall,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Text(
-                      weather.country,
-                      style: const TextStyle(
-                        color: MyColors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               GestureDetector(
@@ -87,16 +83,11 @@ Widget weatherSearchBox(WeatherCity weather, context, index) {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.only(top: 15, bottom: 5),
                         child: Image.asset('assets/images/Plus.png'),
                       ),
-                      const Text(
-                        'Add to home',
-                        style: TextStyle(
-                          color: MyColors.white,
-                          fontSize: 18,
-                        ),
-                      )
+                      Text('Add to home',
+                          style: Theme.of(context).textTheme.titleSmall)
                     ],
                   ),
                 ),

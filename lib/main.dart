@@ -7,6 +7,7 @@ import 'package:weather_flutter_app/data/model/weather_condition_code_model.dart
 import 'package:weather_flutter_app/data/model/weather_item.dart';
 import 'package:weather_flutter_app/di/di.dart';
 import 'package:weather_flutter_app/ui/home_screen.dart';
+import 'package:weather_flutter_app/util/font_style.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
         bloc.add(WeatherGetHiveDataEvent());
         return bloc;
       },
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: MyThemes.appTheme,
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: const HomeScreen(),
       ),
     );
   }

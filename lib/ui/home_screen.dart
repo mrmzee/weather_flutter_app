@@ -37,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: _floatingButton(),
-      backgroundColor: MyColors.purple,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
@@ -133,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: TextField(
                 focusNode: focusNodeController,
                 controller: _textController,
-                style: const TextStyle(color: MyColors.white),
+                style: Theme.of(context).textTheme.titleSmall,
                 decoration: InputDecoration(
                   hintText: 'Search for a city',
                   hintStyle: const TextStyle(color: MyColors.grey),

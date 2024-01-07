@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weather_flutter_app/data/model/weather_item.dart';
-import 'package:weather_flutter_app/util/colors.dart';
 import 'package:weather_flutter_app/util/local_time.dart';
 import 'package:weather_flutter_app/widgets/weater_icon_widget.dart';
 
@@ -42,51 +41,31 @@ class WeatherHomeBoxState extends State<WeatherHomeBox> {
             ),
           ),
           Positioned(
-            top: 70,
+            top: 15,
             left: 50,
             child: Text(
               '${widget.weatherItem.degree}°',
-              style: const TextStyle(
-                color: MyColors.white,
-                fontSize: 64,
-                height: 0.01,
-                letterSpacing: 0.37,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Positioned(
-            top: 120,
+            top: 110,
             left: 50,
             child: Text(
               widget.weatherItem.name,
-              style: const TextStyle(
-                color: MyColors.white,
-                fontSize: 25,
-                height: 0.01,
-                letterSpacing: 0.37,
-              ),
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
           Positioned(
-            top: 150,
+            top: 135,
             left: 50,
             child: Text(
               localTime(widget.weatherItem.timezone),
-              style: const TextStyle(
-                color: MyColors.white,
-                fontSize: 25,
-                height: 0.01,
-                letterSpacing: 0.37,
-              ),
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

@@ -45,8 +45,7 @@ class SearchMainWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
-      backgroundColor: MyColors.purple,
+      appBar: _appBar(context),
       body: CustomScrollView(
         slivers: [
           BlocBuilder<SearchBloc, SearchState>(
@@ -97,16 +96,13 @@ class SearchMainWidget extends StatelessWidget {
     );
   }
 
-  PreferredSizeWidget _appBar() {
+  PreferredSizeWidget _appBar(context) {
     return AppBar(
       centerTitle: true,
       backgroundColor: MyColors.purple,
       leading: const BackButton(color: MyColors.white),
       title: const Text('Search'),
-      titleTextStyle: const TextStyle(
-        color: MyColors.white,
-        fontSize: 24,
-      ),
+      titleTextStyle: Theme.of(context).textTheme.titleMedium,
     );
   }
 }
