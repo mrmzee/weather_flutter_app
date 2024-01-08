@@ -14,10 +14,18 @@ This software is developed using the Dart programming language with the bloc arc
 
 ## Screenshots
 
-![App Screenshot](https://raw.githubusercontent.com/mrmzee/weather_flutter_app/main/github_media/Screenshot_1704692846.png)
+![App Screenshot](https://raw.githubusercontent.com/mrmzee/weather_flutter_app/main/github_media/app.jpg)
 
-![App Screenshot](https://raw.githubusercontent.com/mrmzee/weather_flutter_app/main/github_media/Screenshot_1704692828.png)
 
+
+## Ui & Ux
+
+[Figma Ui File](https://www.figma.com/file/Rdklv04Pfd8tz8vlNkjUT0/Weather-App-UI-Design-(Community)?type=design&node-id=2-1397&mode=design&t=IK6EyKq8dlGGIzav-0)
+
+
+## Demo APK
+
+ [Download APK File](https://github.com/mrmzee/weather_flutter_app/blob/main/github_media/weather%20moon.apk)
 
 
 ## Installation
@@ -73,17 +81,13 @@ I appreciate and encourage the submission of pull requests. Typically, I aim to 
 - Adhere to the established standards, consistent with other projects in this repository.
 - Most importantly, have fun!
 
-## Demo APK
-
- [Download APK File](https://github.com/mrmzee/weather_flutter_app/blob/main/github_media/weather%20moon.apk)
-
-
 ## A Special Thanks to 
 
 
 I would like to express my gratitude to those who assisted me during the execution of this project.
 
 - [@AmirAhmad Adibi](https://github.com/amirahmadadibi)
+- SamanFarzane
 - [@SoheylFarzane](https://github.com/soheylfarzane)
 
 
