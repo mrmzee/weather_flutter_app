@@ -1,0 +1,14 @@
+const String plusImage = 'assets/images/Plus.png';
+const String weatherBoxImage = 'assets/images/weather_box.png';
+const String dayStormImage = 'assets/images/Day_Storm.png';
+const String dayRainImage = 'assets/images/Day_Rain.png';
+const String daySnowImage = 'assets/images/Day_Snow.png';
+const String dayWindImage = 'assets/images/Day_Wind.png';
+const String daySunImage = 'assets/images/Day_Sun.png';
+const String dayCloudsImage = 'assets/images/Day_Clouds.png';
+const String nightStormImage = 'assets/images/Night_Storm.png';
+const String nightRainImage = 'assets/images/Night_Rain.png';
+const String nightSnowImage = 'assets/images/Night_Snow.png';
+const String nightWindImage = 'assets/images/Night_Wind.png';
+const String nightMoonImage = 'assets/images/Night_Moon.png';
+const String nightCloudsImage = 'assets/images/Night_Clouds.png';

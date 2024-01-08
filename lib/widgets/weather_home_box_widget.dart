@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_flutter_app/data/model/weather_item.dart';
+import 'package:weather_flutter_app/util/images.dart';
 import 'package:weather_flutter_app/util/local_time.dart';
-import 'package:weather_flutter_app/widgets/weater_icon_widget.dart';
+import 'package:weather_flutter_app/widgets/weather_icon_widget.dart';
 
 class WeatherHomeBox extends StatefulWidget {
   final WeatherItem weatherItem;
@@ -30,7 +31,7 @@ class WeatherHomeBoxState extends State<WeatherHomeBox> {
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          Image.asset('assets/images/weather_box.png'),
+          Image.asset(weatherBoxImage),
           Positioned(
             top: -5,
             right: 20,

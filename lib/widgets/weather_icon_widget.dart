@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_flutter_app/data/model/weather_condition_code_model.dart';
+import 'package:weather_flutter_app/util/images.dart';
 
 Widget weatherIconWidget(WeatherConditionCodeModel code, int time) {
   var utcTime = DateTime.now().toUtc();
@@ -13,40 +14,40 @@ Widget weatherIconWidget(WeatherConditionCodeModel code, int time) {
   if (dateTime >= 6 && dateTime <= 18) {
     switch (code.weatherConditionCode) {
       case > 200 && <= 300:
-        return Image.asset('assets/images/Day_Storm.png');
+        return Image.asset(dayStormImage);
       case > 300 && <= 600:
-        return Image.asset('assets/images/Day_Rain.png');
+        return Image.asset(dayRainImage);
 
       case > 600 && <= 700:
-        return Image.asset('assets/images/Day_Snow.png');
+        return Image.asset(daySnowImage);
       case > 700 && <= 800:
-        return Image.asset('assets/images/Day_Wind.png');
+        return Image.asset(dayWindImage);
       case == 800:
-        return Image.asset('assets/images/Day_Sun.png');
+        return Image.asset(daySunImage);
       case > 800 && <= 804:
-        return Image.asset('assets/images/Day_Clouds.png');
+        return Image.asset(dayCloudsImage);
 
       default:
-        return Image.asset('assets/images/Day_Storm.png');
+        return Image.asset(dayStormImage);
     }
   } else {
     switch (code.weatherConditionCode) {
       case > 200 && <= 300:
-        return Image.asset('assets/images/Night_Storm.png');
+        return Image.asset(nightStormImage);
       case > 300 && <= 600:
-        return Image.asset('assets/images/Night_Rain.png');
+        return Image.asset(nightRainImage);
 
       case > 600 && <= 700:
-        return Image.asset('assets/images/Night_Snow.png');
+        return Image.asset(nightSnowImage);
       case > 700 && <= 800:
-        return Image.asset('assets/images/Night_Wind.png');
+        return Image.asset(nightWindImage);
       case == 800:
-        return Image.asset('assets/images/Night_Moon.png');
+        return Image.asset(nightMoonImage);
       case > 800 && <= 804:
-        return Image.asset('assets/images/Night_Clouds.png');
+        return Image.asset(nightCloudsImage);
 
       default:
-        return Image.asset('assets/images/Night_Moon.png');
+        return Image.asset(nightMoonImage);
     }
   }
 }
