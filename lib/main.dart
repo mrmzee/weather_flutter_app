@@ -10,7 +10,6 @@ import 'package:weather_flutter_app/ui/home_screen.dart';
 import 'package:weather_flutter_app/util/font_style.dart';
 
 void main() async {
-  ## handel new state management
   await Hive.initFlutter();
   Hive.registerAdapter(WeatherItemAdapter());
   Hive.registerAdapter(WeatherConditionCodeModelAdapter());
